@@ -1,3 +1,4 @@
+%% A minimal LaTeX preamble
 
 \documentclass[11pt]{amsart}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
