@@ -5,16 +5,33 @@ James Carlson
 
 == Purpose
 
-The aim of +tex-converter+ is transform an asciidoc
+The aim of +tex-converter+ is to transform an asciidoc
 document containing mathematics into a LaTeX document.
 Several asciidoc formats will be supported:
 
 * Asciidoc - use +:stem:+ or +:stem: latexmath+
-* LaTeX - use the syntax
-delmited by +$ ... $+ or by
+* LaTeX - use the syntax with 
+delmiters  +$ ... $+ and
 ----
       \[ ... \]
 ----
+For both formats the mathematical text within the 
+delimters is standard LaTeX, e.g.,
+
+----
+Pythagoras said: $a^2 + b^2 = c^2$.
+----
+
+and 
+
+----
+Euler found that
+\[
+   e^{2\pi \sqrt{-1}} = 1
+\]
+Marvelous!
+----
+
 Currently the second format is supported (such as it is).
 Support for the first is forthcoming (days, not weeks).
 
