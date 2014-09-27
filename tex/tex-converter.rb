@@ -5,10 +5,15 @@
 #
 # This is a first step towards writing a LaTeX backend
 # for Asciidoctor. It is based on the 
-# Dan Allen's demo-converter.rb and differs
-# from it only in the redefinition of the
-# methods "document node" and "section node"
+# Dan Allen's demo-converter.rb.  The "convert" method
+# is unchange, the methods "document node" and "section node" 
+# have been redefined, and several new methods have been added.
 #
+# The main work will be in identifying asciidoc elements
+# that need to be transformed and adding a method for
+# each such element.  As noted below, the "warn" clause
+# in the "convert" method is a useful tool for this task.
+# 
 # Usage: 
 #
 #   $ asciidoctor -r ./tex-converter.rb -b latex sample1.ad -o sample1.tex
