@@ -2,7 +2,7 @@
 # The purpose of the module TeXBlock is to
 # transform structure of the form
 # \[ ... \], either by passing them on unchanged
-# or by stripping array the escaped braces.
+# or by stripping away the escaped braces.
 #
 # When ... is an environment such as
 #
@@ -90,6 +90,6 @@ module TeXBlock
  
   # The list of "inner environments" whose enclosing
   # escaped braces are not to be stripped.
-	INNER_TYPES = ["array", "matrix","none"]
+  INNER_TYPES = ["array", "matrix","none"]
  
 end
