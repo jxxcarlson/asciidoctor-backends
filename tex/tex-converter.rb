@@ -6,7 +6,7 @@
 # This is a first step towards writing a LaTeX backend
 # for Asciidoctor. It is based on the 
 # Dan Allen's demo-converter.rb.  The "convert" method
-# is unchange, the methods "document node" and "section node" 
+# is unchanged, the methods "document node" and "section node" 
 # have been redefined, and several new methods have been added.
 #
 # The main work will be in identifying asciidoc elements
