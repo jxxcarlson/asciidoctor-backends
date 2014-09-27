@@ -15,8 +15,8 @@ delmited by +$ ... $+ or by
 ----
       \[ ... \]
 ----
-Here is a http://epsilon.my.noteshare.io/notebook/195/?note=782[longish example]. The source file in this repo is +elliptic.ad+
- 
+Currently the second format is supported (such as it is).
+Support for the first is forthcoming (days, not weeks).
 
 
 == Usage
@@ -28,29 +28,30 @@ The command
 $ asciidoctor -r ./tex-converter.rb -b latex sample1.ad -o sample1.tex
 --
 
-will transform +sample1.ad+ into the tex file  +sample1.tex+.
-It can then be run through +pdflatex+.
-At the moment I am testing files where
-the math is tex-style -- delmited by +$ ... $+ or by
-----
-      \[ ... \]
-----
-This is what is used
-on http://noteshare.io[noteshare.io].  I will
-provide for and test the syntaxes
-----
-      \( ... \)
-----
-and +stem:[ ... ]+
-very soon.
+will transform [blue]#+sample1.ad+# into the tex file  [blue]#+sample1.tex+#.
+It can then be run through +pdflatex+. For a shortcut, use the 
+included shell script [blue]#run#:
+
+[source]
+--
+$ ./run sample1
+-- 
+
+For a more comple example with lots of math, 
+see source file [blue]#+elliptic.ad+# in this repo.
+The HTML is rendered at  http://epsilon.my.noteshare.io/notebook/195/?note=782[noteshare.io] --
+compare this with the PDF rendered
+via +tex-converter+.
+
 
 
 
 == Files
 
-=== The main files
+=== Essential files
 
 * tex-converter.rb -- transforms asciidoctor files to tex files
+* tex_block.rb -- strips enclosing escaped braces as needed.
 * preamble -- needed by tex-converter.rb
 * macro -- could be empty, but at the moment is expected to be there.
 
@@ -78,7 +79,7 @@ time.
 
 
 
-== TeX coverage and issues
+== TeX Coverage and Issues
 
 
 A construct like the equation environment,
@@ -124,6 +125,9 @@ the file 'tex_block.rb' and the module therein.
 
 . Some apostrophes and quotes are bad -- they get
 translated as +&#1234;+ and TeX chokes on them.
+
+
+
 
 
 
