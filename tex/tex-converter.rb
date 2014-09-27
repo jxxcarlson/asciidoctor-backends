@@ -56,7 +56,7 @@ class LaTeXConverter
   
   VERBOSE = true
 
-  def convert node, transform = nil, verbose = false
+  def convert node, transform = nil
     transform ||= node.node_name
     if respond_to? transform
       send transform, node
@@ -66,8 +66,20 @@ class LaTeXConverter
   end
 
   def document node
-    node.content
-  end
+    puts "header: #{node.header}".blue
+    puts "#{node.methods}".magenta
+    # TeX Preamble and macor definitions
+    doc = File.open("preamble", 'r') { |f| f.read }
+    doc << File.open("macros", 'r') { |f| f.read }
+    # Title, Author, Etc
+    doc << "\n\n\\title\{#{node.header.title}\}\n"
+    doc << "\\author\{#{node.author}\}\n"
+    doc << "\\date\{#{node.revdate}\}\n\n\n"
+    doc << "\n\n\\begin\{document\}\n"
+    doc << "\\maketitle\n\n\n"   
+    doc << node.content
+    doc << "\n\n\\end{document}\n\n"  
+   end
 
   def section node
     space = "-"*2*(node.level-1)

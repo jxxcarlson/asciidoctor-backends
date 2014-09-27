@@ -1,3 +1,9 @@
+= TeX-Converter
+James Carlson
+:numbered:
+:toc2:
+
+
 
 == Usage
 
@@ -20,13 +26,27 @@ incorporates the preamble and closing line.
 The resulting file can then be run through
 +pdflatex+.
 
+At the moment I am testing files where
+the math is tex-style -- delmited by +$ ... $+ or by
+----
+      \[ ... \]
+----
+This is what is used
+on http://noteshare.io[noteshare.io].  I will
+provide for and test the syntaxes
+----
+      \( ... \)
+----
+and +stem:[ ... ]+
+very soon.
+
 
 
 == Files
 
 === The main files
 
-* tex-converter.rb -- the main file
+* tex-converter.rb -- transforms asciidoctor files to tex files
 * preamble -- needed by tex-converter.rb
 
 === Code for testing things
@@ -40,9 +60,58 @@ The resulting file can then be run through
 * sample1.ad
 * elliptic.ad
 
-===  Other
 
-* issues.ad
+== Coverage
+
+The following are handled by +tex-converter.rb+ at this
+time.
+
+. Sections through level 5
+
+. Numbered and un-numbered lists.  Nesting has not
+  been addressed
+  
+. Bold and italic text
+
+. hyperlinks
+
+
+
+
+== Issues for TeX conversion
+
+
+The construct
+----
+    \[ 
+	    \begin{anything} 
+		... 
+	    \end{anything} 
+   \]
+---- 
+needs to be transformed to ----
+---- 
+	    \begin{anything} 
+		... 
+	    \end{anything} 
+---- 
+
+Here is list of other issues:
+
+. Write the preamble and closing line using +tex-converter+
+
+. Address macro definition inclusion
+
+. The following symbols need to be passed through unchanged
+
+** +--+
+** +<+ 
+** +>+
+
+
+. Some apostrophes and quotes are bad -- they get
+translated as +&#1234;+ and TeX chokes on them.
+
 
 
 
