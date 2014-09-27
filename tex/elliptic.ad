@@ -11,16 +11,24 @@ by an equation of the form
 \[
    w^2 = p(z),
 \]
-where $p(z)$ is a cubic or quartic polynomial.  Thus $\EEE$ is an algebraic curve --
-in fact a projective algebraic curve.   It is an algebraic curve of degree three,
-meaning that a generic line $L$ intersects $\EEE$ in three points.  Any line
-intersects $\EEE$ in three points counting multiplicity.  This fact allows
-one to define the structure of a group on $\EEE$.  The addition law
-is defined as follows.  Given points $A$ and $B$ on $\EEE$, let $L$ be the line
-joining $A$ and $B$, and let $C$ be the third point in which $L$ cuts
-$\EEE$.  If $C = (z,w)$, let $C' = (z,-w)$.  Then $A + B = C'$ is the 
-correct addition law.  It is easy to see that it is commutative, and it
-is not hard to find additive inverses, once one has found the zero element.
+where $p(z)$ is a cubic or quartic polynomial.  
+Thus $\EEE$ is an algebraic curve --
+in fact a projective algebraic curve.   
+It is an algebraic curve of degree three,
+meaning that a generic line $L$ intersects 
+$\EEE$ in three points.  Any line
+intersects $\EEE$ in three points counting 
+multiplicity.  This fact allows
+one to define the structure of a group on 
+$\EEE$.  The addition lawis defined as follows.  
+Given points $A$ and $B$ on $\EEE$, 
+let $L$ be the line joining $A$ and $B$, 
+and let $C$ be the third point in which $L$ cuts
+$\EEE$.  If $C = (z,w)$, let $C' = (z,-w)$.  
+Then $A + B = C'$ is the correct addition law.  
+It is easy to see that it is commutative, and it
+is not hard to find additive inverses, once one 
+has found the zero element.
 Associativity is what is difficult to prove.
 
 === Topology

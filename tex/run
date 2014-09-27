@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Usage:  sh run sample1 or just ./run sample1
+#
+# Effect: run asciidoctor on sample1.ad
+# to create sample1.tex, then open sample1.tex 
+# in TextMate to view tex file.  
+#
+# In TexMate, use cmd-R to typeset the file and
+# view the resulting PDF
+#
+# Note: no .ad extension above
+
+
+asciidoctor -r ./tex-converter.rb -b latex $1.ad -o converted.tex
+mate $1.ad
+
+
+# /usr/local/texlive/2011/bin/universal-darwin/pdflatex foo.tex
+# pv foo.pdf
+

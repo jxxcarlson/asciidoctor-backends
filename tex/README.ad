@@ -3,6 +3,20 @@ James Carlson
 :numbered:
 :toc2:
 
+== Purpose
+
+The aim of +tex-converter+ is transform an asciidoc
+document containing mathematics into a LaTeX document.
+Several asciidoc formats will be supported:
+
+* Asciidoc - use +:stem:+ or +:stem: latexmath+
+* LaTeX - use the syntax
+delmited by +$ ... $+ or by
+----
+      \[ ... \]
+----
+Here is a http://epsilon.my.noteshare.io/notebook/195/?note=782[longish example]. The source file in this repo is +elliptic.ad+
+ 
 
 
 == Usage
@@ -47,7 +61,7 @@ very soon.
 * elliptic.ad
 
 
-== Coverage
+== Asciidoc Coverage
 
 The following are handled by +tex-converter.rb+ at this
 time.
@@ -64,7 +78,7 @@ time.
 
 
 
-== Technical points
+== TeX coverage and issues
 
 
 A construct like the equation environment,
@@ -90,14 +104,14 @@ of the delimiters
 \]
 ----
 But others live inside. The needed transformation
-is given by +TeXBlock.process_environments.  See
+is given by +TeXBlock.process_environments+.  See
 the file 'tex_block.rb' and the module therein. 
 
 
 
 
 
-=== Other issues:
+=== Other TeX issues:
 
 
 . The following symbols need to be passed through unchanged
@@ -105,7 +119,7 @@ the file 'tex_block.rb' and the module therein.
 ** +--+
 ** +<+ 
 ** +>+
-** +&+
+** +&+ -- important for typesettig matrices
 
 
 . Some apostrophes and quotes are bad -- they get
