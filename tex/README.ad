@@ -14,18 +14,8 @@ The command
 $ asciidoctor -r ./tex-converter.rb -b latex sample1.ad -o sample1.tex
 --
 
-will transform +sample1.ad+ into the tex file  +sample1.tex+,
-but for now without the preamble and the closing +\end{document}+
-The command
-
-[source]
---
-$ ./run.sh sample1
---
-incorporates the preamble and closing line.
-The resulting file can then be run through
-+pdflatex+.
-
+will transform +sample1.ad+ into the tex file  +sample1.tex+.
+It can then be run through +pdflatex+.
 At the moment I am testing files where
 the math is tex-style -- delmited by +$ ... $+ or by
 ----
@@ -48,12 +38,8 @@ very soon.
 
 * tex-converter.rb -- transforms asciidoctor files to tex files
 * preamble -- needed by tex-converter.rb
+* macro -- could be empty, but at the moment is expected to be there.
 
-=== Code for testing things
-
-* run.sh
-* preprocess.rb
-* postprocess.rb
 
 === Test files
 
@@ -78,35 +64,48 @@ time.
 
 
 
-== Issues for TeX conversion
+== Technical points
 
 
-The construct
+A construct like the equation environment,
 ----
     \[ 
-	    \begin{anything} 
+	    \begin{equation} 
 		... 
-	    \end{anything} 
+	    \end{equation} 
    \]
 ---- 
 needs to be transformed to ----
 ---- 
-	    \begin{anything} 
+	    \begin{equation} 
 		... 
-	    \end{anything} 
+	    \end{equation} 
 ---- 
+There is a tricky point here.  Environments
+like the equation environment live outside
+of the delimiters
+----
+\[
+  ...
+\]
+----
+But others live inside. The needed transformation
+is given by +TeXBlock.process_environments.  See
+the file 'tex_block.rb' and the module therein. 
 
-Here is list of other issues:
 
-. Write the preamble and closing line using +tex-converter+
 
-. Address macro definition inclusion
+
+
+=== Other issues:
+
 
 . The following symbols need to be passed through unchanged
 
 ** +--+
 ** +<+ 
 ** +>+
+** +&+
 
 
 . Some apostrophes and quotes are bad -- they get

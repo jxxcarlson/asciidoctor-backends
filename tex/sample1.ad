@@ -43,11 +43,14 @@ http://en.wikipedia.org/wiki/History_of_algebra[History of Algebra]
 
 === Binomial Formula
 
+
+
+==== Exercise
+
 \[
  (a + b)^2 = a^2 + 2ab + b^2
 \]
 
-==== Exercise
 
 . Substitute $a = 1$, $b = 2$ in both sides
 and verify that equality holds.
@@ -64,6 +67,26 @@ is getting ridiculous!
 ====== Subcomment
 
 And even more ridiculous still!!
+
+== Matrices
+
+\[ 
+M = \left[ 
+  \begin{array}{ c c } 
+	 1 & 2 \\ 
+	 3 & 4 
+  \end{array} \right] 
+\]
+
+
+
+== Numbered equations
+
+\[
+\begin{equation}
+  a^3 + b^3 = c^3
+\end{equation}
+\]
 
 == Things to do
 

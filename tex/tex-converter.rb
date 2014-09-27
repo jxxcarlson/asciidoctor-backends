@@ -49,6 +49,9 @@
 
 
 require 'asciidoctor'
+# require_relative 'tex_block'
+require '/Users/carlson/Dropbox/prog/git/asciidoctor-backends/tex/tex_block/'
+include TeXBlock
 
 class LaTeXConverter
   include Asciidoctor::Converter
@@ -67,7 +70,7 @@ class LaTeXConverter
 
   def document node
     puts "header: #{node.header}".blue
-    puts "#{node.methods}".magenta
+    # puts "#{node.methods}".magenta
     # TeX Preamble and macor definitions
     doc = File.open("preamble", 'r') { |f| f.read }
     doc << File.open("macros", 'r') { |f| f.read }
@@ -76,8 +79,12 @@ class LaTeXConverter
     doc << "\\author\{#{node.author}\}\n"
     doc << "\\date\{#{node.revdate}\}\n\n\n"
     doc << "\n\n\\begin\{document\}\n"
-    doc << "\\maketitle\n\n\n"   
-    doc << node.content
+    doc << "\\maketitle\n\n\n" 
+      
+    processed_content = TeXBlock.process_environments node.content
+    doc << processed_content
+    # puts node.content
+    
     doc << "\n\n\\end{document}\n\n"  
    end
 
@@ -191,4 +198,5 @@ class String
   end
 
 end
+
 
