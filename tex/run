@@ -5,5 +5,5 @@
 # Effect: run asciidoctor on sample1.ad
 # to create sample1.texple1.tex
 
-asciidoctor -r ./tex-converter.rb -b latex $1.ad -o $1.tex
+asciidoctor -r ./tex-converter.rb -b latex $1.adoc -o $1.tex
 

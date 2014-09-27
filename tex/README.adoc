@@ -25,10 +25,10 @@ The command
 
 [source]
 --
-$ asciidoctor -r ./tex-converter.rb -b latex sample1.ad -o sample1.tex
+$ asciidoctor -r ./tex-converter.rb -b latex sample1.adoc -o sample1.tex
 --
 
-will transform [blue]#+sample1.ad+# into the tex file  [blue]#+sample1.tex+#.
+will transform [blue]#+sample1.adoc+# into the tex file  [blue]#+sample1.tex+#.
 It can then be run through +pdflatex+. For a shortcut, use the 
 included shell script [blue]#run#:
 
@@ -38,7 +38,7 @@ $ ./run sample1
 -- 
 
 For a more comple example with lots of math, 
-see source file [blue]#+elliptic.ad+# in this repo.
+see source file [blue]#+elliptic.adoc+# in this repo.
 The HTML is rendered at  http://epsilon.my.noteshare.io/notebook/195/?note=782[noteshare.io] --
 compare this with the PDF rendered
 via +tex-converter+.
@@ -58,9 +58,8 @@ via +tex-converter+.
 
 === Test files
 
-* sample1.ad
-* elliptic.ad
-
+* sample1.adoc
+* elliptic.adoc
 
 == Asciidoc Coverage
 
