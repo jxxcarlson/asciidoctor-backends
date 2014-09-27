@@ -2,6 +2,12 @@
 James Carlson
 2014-09-25
 
+////
+This is a comment.  It is not
+passed on by Asciidoc in the rendering
+process and so tex-converter does 
+not see it, since it is a node processor.
+////
 
 
 == Elliptic Curves
