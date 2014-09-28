@@ -64,14 +64,14 @@ class LaTeXConverter
   include Asciidoctor::Converter
   register_for 'latex'
   
+  NODE_TYPES = %w(document section  \          # top
+  ulist olist                       \          # ::List
+  inline_quoted inline_anchor       \          # ::Inline
+  paragraph stem)                              # ::Block
   
   def convert node, transform = nil
-    
-    node_list = %w(document section paragraph )  # top
-    node_list << %w(ulist olist)                 # list
-    node_list << %w(inline_quoted stem)          # block
-    
-    if node_list.include? node.node_name
+        
+    if NODE_TYPES.include? node.node_name
       node.tex_process
     else
       warn %(Node to implement: #{node.node_name}).magenta
