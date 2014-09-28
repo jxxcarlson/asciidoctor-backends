@@ -12,11 +12,15 @@ Several asciidoc formats are be supported:
 === Asciidoc syntax
 
 Use +:stem:+ or +:stem: latexmath+.  The syntax
-is +stem[ ... ]+ or
+is +stem:[ ... ]+ or
 ----
 [stem]
+--
 ...
+--
 ----
+where [blue]#+...+# stands for math content.
+The math content is written in LaTeX.
 There is basic support for this syntax.
 
 === LaTeX syntax
