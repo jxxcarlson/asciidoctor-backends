@@ -38,7 +38,24 @@
 #       Other than the asciidoc ->  tex mapping, the tex-converter 
 #       does not need to understand tex.
 #
-#   4.  Included in this repo is the file "sample1.ad"
+#   4.  Included in this repo are the files "sample1.ad", "sample2.ad",
+#       and "elliptic.ad" which can be used to test the code
+#
+#   5.  Beginning with version 0.0.2 we use a new dispatch mechanism
+#       which should permit one to better manage growth of the code
+#       as the coverage of the converter increases. Briefly, the 
+#       main convert method, whose duty is to process nodes, looks
+#       at node.node_name, then makes the method call node.tex_process
+#       if the node_name is registered in NODE_TYPES. The method
+#       tex_process is defined by extending the various classes to
+#       which the node might belong, e.g., Asciidoctor::Block,
+#       Asciidoctor::Inline, etc.  See the file "node_processor.rb",
+#       where these extensions are housed for the time being.
+#
+#       If node.node_name is not found in NODE_TYPES, then
+#       a warning message is issued.  We can use it as a clue
+#       to find what to do to handle this node.  All the code
+#       in "node_processors.rb" was written using this hackish process.
 #
 #
 #  CURRENT STATUS
@@ -46,7 +63,7 @@
 #  The following constructs are processed
 #
 #  * sections to a depth of five, e.g., == foo, === foobar, etc.
-#  * ordered and unordered lists, thugh nestings is untested and
+#  * ordered and unordered lists, though nestings is untested and
 #    likely does not work.
 #  * *bold* and _italic_
 #  * hyperlinks like http://foo.com[Nerdy Stuff]

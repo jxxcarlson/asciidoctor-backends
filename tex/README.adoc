@@ -90,7 +90,8 @@ via +tex-converter+.
 * tex-converter.rb -- transforms asciidoctor files to tex files
 * tex_block.rb -- strips enclosing escaped braces as needed.
 * preamble -- needed by tex-converter.rb
-* macro -- could be empty, but at the moment is expected to be there.
+* macro -- could be empty, but at the moment is expected to be there.  The
+file +elliptic.ad+ does use "macro"
 
 
 === Test files
@@ -98,6 +99,8 @@ via +tex-converter+.
 * sample1.ad -- math in conventonal LaTeX form, +$ ... $+, etc.
 * sample2.ad -- like sample1, but the mat is as in +stem:[a^ + b^2 = c^2]+, etc.
 * elliptic.ad
+
+One should use all three files in testing the code.
 
 == Asciidoc Coverage
 
