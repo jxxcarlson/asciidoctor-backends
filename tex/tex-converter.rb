@@ -145,9 +145,33 @@ class LaTeXConverter
       "\\textbf\{#{node.text}\}"
     when :emphasis
       "\\emph\{#{node.text}\}"
+    when :asciimath
+      "\$#{node.text}\$"
     else
       "\\unknown\\{#{node.text}\\}"
     end   
+  end
+  
+  def literal node
+    puts ["Node:".magenta,  "open".red, "blockname: #{node.blockname}\n".red, 
+      "content: #{node.content}\n".red,
+      "attributes: #{node.attributes}\n".red,
+      "lines: #{node.lines}\n".red,].join(" ") if VERBOSE 
+      node.content
+  end
+  
+  
+  def open node
+    puts ["Node:".magenta,  "open".red, "blockname: #{node.blockname}\n".red, 
+      "content: #{node.content}\n".red,
+      "attributes: #{node.attributes}\n".red,
+      "attr1: #{node.attributes[1]}\n".red].join(" ") if VERBOSE 
+      case node.attributes[1]
+      when 'stem'
+        "\\\[\n#{node.content}\n\\\]\n"
+      else
+        puts "I don't understand this attr1"
+      end
   end
   
   def inline_anchor node

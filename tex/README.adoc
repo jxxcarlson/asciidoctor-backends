@@ -7,10 +7,21 @@ James Carlson
 
 The aim of +tex-converter+ is to transform an asciidoc
 document containing mathematics into a LaTeX document.
-Several asciidoc formats will be supported:
+Several asciidoc formats are be supported:
 
-* Asciidoc - use +:stem:+ or +:stem: latexmath+
-* LaTeX - use the syntax with 
+=== Asciidoc syntax
+
+Use +:stem:+ or +:stem: latexmath+.  The syntax
+is +stem[ ... ]+ or
+----
+[stem]
+...
+----
+There is basic support for this syntax.
+
+=== LaTeX syntax
+
+Use the syntax with 
 delmiters  +$ ... $+ and
 ----
       \[ ... \]
@@ -31,10 +42,7 @@ Euler found that
 \]
 Marvelous!
 ----
-
-Currently the second format is supported (such as it is).
-Support for the first is forthcoming (days, not weeks).
-
+There is basic support for this syntax.
 
 == Usage
 
@@ -75,13 +83,16 @@ via +tex-converter+.
 
 === Test files
 
-* sample1.ad
+* sample1.ad -- math in conventonal LaTeX form, +$ ... $+, etc.
+* sample2.ad -- like sample1, but the mat is as in +stem:[a^ + b^2 = c^2]+, etc.
 * elliptic.ad
 
 == Asciidoc Coverage
 
 The following are handled by +tex-converter.rb+ at this
 time.
+
+. stem:[...] -- inline_quoted of type :asciimath
 
 . Sections through level 5
 
@@ -125,7 +136,11 @@ is given by +TeXBlock.process_environments+.  See
 the file 'tex_block.rb' and the module therein. 
 
 
-
+The TeXBlock package addresses the points made
+above in the case of convenctional LaTeX syntanx
+embedded in escaped braces.  This issue needs
+to be addressed for the +[stem]+ block
+syntax as well.
 
 
 === Other TeX issues:
