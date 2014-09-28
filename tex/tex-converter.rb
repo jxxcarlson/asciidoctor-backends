@@ -64,16 +64,19 @@ class LaTeXConverter
   include Asciidoctor::Converter
   register_for 'latex'
   
-  VERBOSE = true
-
+  
   def convert node, transform = nil
-    transform ||= node.node_name
-    if respond_to? transform
-      send transform, node
-      # send tex_process
+    
+    node_list = %w(document section paragraph )  # top
+    node_list << %w(ulist olist)                 # list
+    node_list << %w(inline_quoted stem)          # block
+    
+    if node_list.include? node.node_name
+      node.tex_process
     else
-      warn %(Node to implement: #{transform}).magenta
+      warn %(Node to implement: #{node.node_name}).magenta
     end
+    
   end
 
   def document node
