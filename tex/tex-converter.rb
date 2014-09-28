@@ -55,6 +55,7 @@
 
 require 'asciidoctor'
 require_relative 'colored_text'
+require_relative 'node_processors'
 require_relative 'tex_block'
 
 include TeXBlock
@@ -69,122 +70,69 @@ class LaTeXConverter
     transform ||= node.node_name
     if respond_to? transform
       send transform, node
+      # send tex_process
     else
       warn %(Node to implement: #{transform}).magenta
     end
   end
 
   def document node
-    puts "header: #{node.header}".blue
-    # puts "#{node.methods}".magenta
-    # TeX Preamble and macor definitions
-    doc = File.open("preamble", 'r') { |f| f.read }
-    doc << File.open("macros", 'r') { |f| f.read }
-    # Title, Author, Etc
-    doc << "\n\n\\title\{#{node.header.title}\}\n"
-    doc << "\\author\{#{node.author}\}\n"
-    doc << "\\date\{#{node.revdate}\}\n\n\n"
-    doc << "\n\n\\begin\{document\}\n"
-    doc << "\\maketitle\n\n\n" 
-      
-    processed_content = TeXBlock.process_environments node.content
-    doc << processed_content
-    # puts node.content
-    
-    doc << "\n\n\\end{document}\n\n"  
+    node.tex_process 
    end
 
   def section node
-    space = "-"*2*(node.level-1)
-    puts ["Node:".blue, "level #{node.level}:".cyan, "#{space} #{node.title}"].join(" ") if VERBOSE
-    case node.level
-    when 1
-       "\\section\{#{node.title}\}\n\n#{node.content}\n\n"
-     when 2
-       "\\subsection\{#{node.title}\}\n\n#{node.content}\n\n"
-     when 3
-       "\\subsubsection\{#{node.title}\}\n\n#{node.content}\n\n"
-     when 4
-       "\\paragraph\{#{node.title}\}\n\n#{node.content}\n\n"
-     when 5
-       "\\subparagraph\{#{node.title}\}\n\n#{node.content}\n\n"
-     end
+    node.tex_process
   end
 
   def paragraph node
-    # node.content.tr("\n", ' ') << "\n"
-    node.content << "\n\n"
+    node.tex_process
   end
   
   def ulist node
-    puts ["Node:".blue, "list".cyan, "#{node.content.count} items"].join(" ") if VERBOSE
-   
-    list = "\\begin{itemize}\n\n"
-    node.content.each do |item|
-      puts ["  --  item: ".blue, "#{item.text.abbreviate}"].join(" ") if VERBOSE
-      list << "\\item #{item.text}\n\n"
-    end
-    list << "\\end{itemize}\n\n"     
+    node.tex_process
   end
   
   def olist node
-    puts ["Node:".blue, "list".cyan, "#{node.content.count} items"].join(" ")  if VERBOSE
-   
-    list = "\\begin{enumerate}\n\n"
-    node.content.each do |item|
-      puts ["  --  item:  ".blue, "#{item.text.abbreviate}"].join(" ") if VERBOSE
-      list << "\\item #{item.text}\n\n"
-    end
-    list << "\\end{enumerate}\n\n"     
+    node.tex_process
   end
   
   def inline_quoted node
-    puts ["Node:".blue,  "inline quoted".cyan, "type[#{node.type}]: #{node.text.cyan}"].join(" ") if VERBOSE
-    case node.type
-    when :strong
-      "\\textbf\{#{node.text}\}"
-    when :emphasis
-      "\\emph\{#{node.text}\}"
-    when :asciimath
-      "\$#{node.text}\$"
-    else
-      "\\unknown\\{#{node.text}\\}"
-    end   
+    node.tex_process 
   end
-  
-  def literal node
-    puts ["Node:".magenta,  "open".red, "blockname: #{node.blockname}\n".red, 
-      "content: #{node.content}\n".red,
-      "attributes: #{node.attributes}\n".red,
-      "lines: #{node.lines}\n".red,].join(" ") if VERBOSE 
-      node.content
+    
+  def stem node
+    node.tex_process
+  end
+     
+  def inline_anchor node
+    node.tex_process
   end
   
   
+end
+
+
+=begin  
   def open node
     puts ["Node:".magenta,  "open".red, "blockname: #{node.blockname}\n".red, 
       "content: #{node.content}\n".red,
       "attributes: #{node.attributes}\n".red,
       "attr1: #{node.attributes[1]}\n".red].join(" ") if VERBOSE 
-      case node.attributes[1]
-      when 'stem'
-        "\\\[\n#{node.content}\n\\\]\n"
-      else
-        puts "I don't understand this attr1"
-      end
   end
-  
-  def inline_anchor node
-    puts ["Node:".blue, "inline anchor".cyan,  "type[#{node.type}], ".green + " text: #{node.text} target: #{node.target}".cyan].join(" ") if VERBOSE
-    case node.type
-    when :link
-      "\\href\{#{node.target}\}\{#{node.text}\}"
-    else
-      "undefined inline anchor"
-    end
+=end
+
+
+=begin  
+  def literal node
+    puts "HERE I AM!".magenta
+    puts ["Node:".magenta,  "open".red, "blockname: #{node.blockname}\n".red, 
+      "content: #{node.content}\n".red,
+      "attributes: #{node.attributes}\n".red,
+      "lines: #{node.lines}\n".red,].join(" ") if VERBOSE
+      puts "node.class = #{node.class}".yellow if VERBOSE 
+      node.content
   end
-  
-  
-end
+=end
+
 
 

@@ -2,51 +2,59 @@
 James Carlson
 :numbered:
 :toc2:
+:stem: 
 
 == Purpose
 
 The aim of +tex-converter+ is to transform an asciidoc
 document containing mathematics into a LaTeX document.
-Several asciidoc formats are be supported:
+Two math formats are be supported, [blue]#asciimath#
+and [blue]#LaTeX#. With them you can render expressions
+such as stem:[ a^2 + b^2 = c^2 ] and
 
-=== Asciidoc syntax
+[stem]
+++++
+ e^{2\pi \sqrt{-1}} = 1
+++++
 
-Use +:stem:+ or +:stem: latexmath+.  The syntax
-is +stem:[ ... ]+ or
+=== Asciimath syntax
+
+Asciimath syntax is
+as in the examples 
+----
+stem:[ a^2 + b^2 = c^2 ]
+----
+
+and
+
 ----
 [stem]
---
-...
---
+++++
+  e^{2\pi \sqrt{-1}} = 1
+++++
 ----
-where [blue]#+...+# stands for math content.
+
+
 The math content is written in LaTeX.
-There is basic support for this syntax.
+To activitate asciimath
+processing, set [blue]#+:stem:+# or [blue]#+:stem: latexmath+#.  The
 
 === LaTeX syntax
 
-Use the syntax with 
-delmiters  +$ ... $+ and
-----
-      \[ ... \]
-----
-For both formats the mathematical text within the 
-delimters is standard LaTeX, e.g.,
+Use the syntax as in the examples
 
 ----
-Pythagoras said: $a^2 + b^2 = c^2$.
+$ a^2 + b^2 = c^2 $
 ----
 
-and 
+and
 
 ----
-Euler found that
-\[
-   e^{2\pi \sqrt{-1}} = 1
+\[ 
+  e^{2\pi \sqrt{-1}} = 1 
 \]
-Marvelous!
 ----
-There is basic support for this syntax.
+
 
 == Usage
 
@@ -96,7 +104,6 @@ via +tex-converter+.
 The following are handled by +tex-converter.rb+ at this
 time.
 
-. stem:[...] -- inline_quoted of type :asciimath
 
 . Sections through level 5
 
@@ -141,10 +148,9 @@ the file 'tex_block.rb' and the module therein.
 
 
 The TeXBlock package addresses the points made
-above in the case of convenctional LaTeX syntanx
-embedded in escaped braces.  This issue needs
-to be addressed for the +[stem]+ block
-syntax as well.
+above in the case of both convenctional LaTeX syntax
+embedded in escaped braces and the +[stem]+ block
+syntax.
 
 
 === Other TeX issues:

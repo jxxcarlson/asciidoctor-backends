@@ -90,6 +90,6 @@ module TeXBlock
  
   # The list of "inner environments" whose enclosing
   # escaped braces are not to be stripped.
-  INNER_TYPES = ["array", "matrix","none"]
+  INNER_TYPES = ["array", "matrix",  "none"]
  
 end
