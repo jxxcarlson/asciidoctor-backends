@@ -7,16 +7,25 @@ class Asciidoctor::Document
   
   def tex_process
     puts "Node: #{self.class}".blue if VERBOSE
+    puts "Attributes: #{self.attributes}".yellow
     # puts "#{self.methods}".magenta
-    doc = File.open("preamble", 'r') { |f| f.read }
+    doc = "%% Preamble %%\n"
+    doc << File.open("preamble", 'r') { |f| f.read }
+    doc << "%% Asciidoc TeX Macros %%\n"
     doc << File.open("asciidoc_tex_macros", 'r') { |f| f.read }
+    doc << "%% User Macros %%\n"
     doc << File.open("macros", 'r') { |f| f.read }
-    # Title, Author, Etc
-    doc << "\n\n\\title\{#{self.header.title}\}\n"
+    doc << "%% Front Matter %%"
+    doc << "\n\n\\title\{#{self.doctitle}\}\n"
     doc << "\\author\{#{self.author}\}\n"
     doc << "\\date\{#{self.revdate}\}\n\n\n"
+    doc << "%% Begin Document %%"
     doc << "\n\n\\begin\{document\}\n"
-    doc << "\\maketitle\n\n\n" 
+    doc << "\\maketitle\n"
+    if self.attributes["toc"]
+      doc << "\\tableofcontents\n"
+    end
+    doc << "%% Begin Document Text %%\n"
       
     processed_content = TeXBlock.process_environments self.content
     doc << processed_content
