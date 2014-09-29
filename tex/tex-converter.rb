@@ -91,7 +91,7 @@ class LaTeXConverter
     if NODE_TYPES.include? node.node_name
       node.tex_process
     else
-      warn %(Node to implement: #{node.node_name}).magenta
+      warn %(Node to implement: #{node.node_name}, class = #{node.class}).magenta
     end
     
   end
