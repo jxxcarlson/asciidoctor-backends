@@ -71,6 +71,18 @@ Again:
 .. Equations
 
 
+....
+This
+  is
+literal
+  text
+    Do you
+	  see
+	what
+	  I mean?
+....
+
+
 === Algorithm
 
 Nowadays [red]#algorithms# are implmented in `code`.

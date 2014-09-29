@@ -99,6 +99,25 @@ end
 
 class Asciidoctor::Block
   
+  def tex_process
+    puts ["Node:".blue , "#{self.blockname}".blue].join(" ") if VERBOSE
+    case self.blockname
+    when :paragraph
+      paragraph_process
+    when :stem
+      stem_process
+    when :admonition
+      admonition_process
+    when :page_break
+      page_break_process
+    when :literal
+      self.literal_process
+    else
+      puts "This is Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})" unless QUIET
+      ""
+    end  
+  end 
+  
   def paragraph_process
     self.content << "\n\n"
   end
@@ -123,22 +142,12 @@ class Asciidoctor::Block
     "\n\\vfill\\eject\n"
   end
   
-  def tex_process
-    puts ["Node:".blue , "#{self.blockname}".blue].join(" ") if VERBOSE
-    case self.blockname
-    when :paragraph
-      paragraph_process
-    when :stem
-      stem_process
-    when :admonition
-      admonition_process
-    when :page_break
-      page_break_process
-    else
-      puts "This Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})" unless QUIET
-      ""
-    end  
-  end 
+  def literal_process
+    puts ["Node:".magenta, "#{self.blockname}".magenta].join(" ") if VERBOSE
+    "\\begin\{verbatim\}\n#{self.content}\n\\end\{verbatim\}\n"
+  end
+  
+ 
   
 end
 
@@ -154,7 +163,7 @@ class Asciidoctor::Inline
     when 'inline_break'
       self.inline_break_process
     else
-      puts "This Asciidoctor::Inline, tex_process.  I don't know how to do that (#{self.node_name})" unless QUIET
+      puts "This is Asciidoctor::Inline, tex_process.  I don't know how to do that (#{self.node_name})" unless QUIET
       ""
     end  
   end 
