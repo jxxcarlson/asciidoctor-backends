@@ -84,7 +84,7 @@ class LaTeXConverter
   NODE_TYPES = %w(document section               \          # top
   ulist olist                                    \          # ::List
   inline_quoted inline_anchor inline_break       \          # ::Inline
-  paragraph stem admonition)                                # ::Block
+  paragraph stem admonition page_break)                     # ::Block
   
   def convert node, transform = nil
         

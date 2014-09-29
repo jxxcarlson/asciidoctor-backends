@@ -175,6 +175,7 @@ syntax.
 ** +<+ 
 ** +>+
 ** +&+ -- important for typesettig matrices
+** +...+ -- horizontal rule
 
 
 . Some apostrophes and quotes are bad -- they get

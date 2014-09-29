@@ -7,7 +7,7 @@ class Asciidoctor::Document
   
   def tex_process
     puts "Node: #{self.class}".blue if VERBOSE
-    puts "Attributes: #{self.attributes}".yellow
+    # puts "Attributes: #{self.attributes}".yellow
     # puts "#{self.methods}".magenta
     doc = "%% Preamble %%\n"
     doc << File.open("preamble", 'r') { |f| f.read }
@@ -104,6 +104,9 @@ class Asciidoctor::Block
       when :admonition
         puts ["Node:".blue, "#{self.blockname}".cyan, "#{self.style}:".magenta, "#{self.lines[0]}"].join(" ") if VERBOSE   
         "\\admonition\{#{self.style}\}\{#{self.content}\}\n"
+      when :page_break
+        puts ["Node:".blue, "#{self.blockname}".cyan].join(" ") if VERBOSE
+        "\n\\vfill\\eject\n"
     else
       puts "This Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})" unless QUIET
       ""
