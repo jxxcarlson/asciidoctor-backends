@@ -1,6 +1,7 @@
 require_relative 'colored_text'
 
 VERBOSE=true
+QUIET=false
 
 class Asciidoctor::Document
   
@@ -8,6 +9,7 @@ class Asciidoctor::Document
     puts "Node: #{self.class}".blue if VERBOSE
     # puts "#{self.methods}".magenta
     doc = File.open("preamble", 'r') { |f| f.read }
+    doc << File.open("asciidoc_tex_macros", 'r') { |f| f.read }
     doc << File.open("macros", 'r') { |f| f.read }
     # Title, Author, Etc
     doc << "\n\n\\title\{#{self.header.title}\}\n"
@@ -67,7 +69,7 @@ class Asciidoctor::List
      end
      list << "\\end{enumerate}\n\n"  
    else
-     puts "This Asciidoctor::List, tex_process.  I don't know how to do that (#{self.node_name})"
+     puts "This Asciidoctor::List, tex_process.  I don't know how to do that (#{self.node_name})" unless QUIET
    end
   end 
   
@@ -94,7 +96,7 @@ class Asciidoctor::Block
         puts ["Node:".blue, "#{self.blockname}".cyan, "#{self.style}:".magenta, "#{self.lines[0]}"].join(" ") if VERBOSE   
         "\\admonition\{#{self.style}\}\{#{self.content}\}\n"
     else
-      puts "This Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})"
+      puts "This Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})" unless QUIET
       ""
     end  
   end 
@@ -113,12 +115,13 @@ class Asciidoctor::Inline
     when 'inline_break'
       self.inline_break_process
     else
-      puts "This Asciidoctor::Inline, tex_process.  I don't know how to do that (#{self.node_name})"
+      puts "This Asciidoctor::Inline, tex_process.  I don't know how to do that (#{self.node_name})" unless QUIET
       ""
     end  
   end 
   
   def inline_quoted_process
+    puts ["Node:".blue, "#{self.node_name}".cyan,  "type[#{self.type}], ".green + " text: #{self.text}"].join(" ") if VERBOSE 
     case self.type
     when :strong
       "\\textbf\{#{self.text}\}"
@@ -126,6 +129,16 @@ class Asciidoctor::Inline
       "\\emph\{#{self.text}\}"
     when :asciimath
       "\$#{self.text}\$"
+    when :monospaced
+      "\{\\tt #{self.text}\}"
+    when :unquoted
+      role = self.attributes["role"]
+      puts "  --  role = #{role}".yellow if VERBOSE
+      if role == "red"
+        "\\rolered\{ #{self.text}\}"
+      else
+        puts "This is inline_quoted_process.  I don't understand role = #{role}" unless QUIET
+      end
     else
       "\\unknown\\{#{self.text}\\}"
     end 

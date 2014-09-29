@@ -123,6 +123,10 @@ time.
 
 . hyperlinks
 
+. Roles.  These require an entry in the  `asciidoc_tex_macros`
+file.  See `+++\\rolered+++` for the macro corresponding
+to `[red]#darnit!#
+
 
 
 
