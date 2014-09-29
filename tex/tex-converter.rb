@@ -96,37 +96,7 @@ class LaTeXConverter
     
   end
 
-  def document node
-    node.tex_process 
-   end
-
-  def section node
-    node.tex_process
-  end
-
-  def paragraph node
-    node.tex_process
-  end
   
-  def ulist node
-    node.tex_process
-  end
-  
-  def olist node
-    node.tex_process
-  end
-  
-  def inline_quoted node
-    node.tex_process 
-  end
-    
-  def stem node
-    node.tex_process
-  end
-     
-  def inline_anchor node
-    node.tex_process
-  end
   
   
 end

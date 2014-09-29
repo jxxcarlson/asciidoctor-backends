@@ -25,6 +25,7 @@ class Asciidoctor::Document
   
 end
 
+
 class Asciidoctor::Section
  
   def tex_process

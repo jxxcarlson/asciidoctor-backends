@@ -6,11 +6,15 @@ Haarald Gruundahl
 
 == Introduction
 
-Twas brillig and the slithey toves 
+Twas brillig and the slithey toves +
 went the bar and had a blast.
 
-Ho hum, ho hum, fee fie fo fum,
+Ho hum, ho hum, fee fie fo fum, +
 said the Jolly Green Giant.
+
+We will study the cubic equation $\ref{eq:cubic}$
+later in this treatise.  The present cash
+value of the equation is 50 dollars.
 
 == Technical matters
 
@@ -84,6 +88,7 @@ M = \left[
 
 \[
 \begin{equation}
+\label{eq:cubic}
   a^3 + b^3 = c^3
 \end{equation}
 \]

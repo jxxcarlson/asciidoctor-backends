@@ -41,7 +41,7 @@ and
 
 The math content is written in LaTeX.
 To activitate asciimath
-processing, set [blue]#+:stem:+# or [blue]#+:stem: latexmath+#.  The
+processing, set [blue]#+:stem:+# or [blue]#+:stem: latexmath+#. 
 
 === LaTeX syntax
 
