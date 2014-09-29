@@ -53,6 +53,13 @@ like, by the mathematician al-Kwarizmi (see algorithm).
 
 http://en.wikipedia.org/wiki/History_of_algebra[History of Algebra]
 
+* Arithmetic
+** Additive Operators
+** Multipicative Operators
+* Algebra
+** Subsitution
+** Equations
+
 === Algorithm
 
 Nowadays [red]#algorithms# are implmented in `code`.
