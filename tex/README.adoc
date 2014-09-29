@@ -119,6 +119,8 @@ time.
   
 . Bold and italic text
 
+. Hard break line with trailing "+"
+
 . hyperlinks
 
 

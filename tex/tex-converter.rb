@@ -81,10 +81,10 @@ class LaTeXConverter
   include Asciidoctor::Converter
   register_for 'latex'
   
-  NODE_TYPES = %w(document section  \          # top
-  ulist olist                       \          # ::List
-  inline_quoted inline_anchor       \          # ::Inline
-  paragraph stem)                              # ::Block
+  NODE_TYPES = %w(document section               \          # top
+  ulist olist                                    \          # ::List
+  inline_quoted inline_anchor inline_break       \          # ::Inline
+  paragraph stem admonition)                                # ::Block
   
   def convert node, transform = nil
         

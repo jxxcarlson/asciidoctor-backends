@@ -90,6 +90,9 @@ class Asciidoctor::Block
         else
           self.content
         end
+      when :admonition
+        puts ["Node:".blue, "#{self.blockname}".cyan, "#{self.style}:".magenta, "#{self.lines[0]}"].join(" ") if VERBOSE   
+        "\\admonition\{#{self.style}\}\{#{self.content}\}\n"
     else
       puts "This Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})"
       ""
@@ -107,6 +110,8 @@ class Asciidoctor::Inline
       self.inline_quoted_process
     when 'inline_anchor'
       self.inline_anchor_process
+    when 'inline_break'
+      self.inline_break_process
     else
       puts "This Asciidoctor::Inline, tex_process.  I don't know how to do that (#{self.node_name})"
       ""
@@ -135,6 +140,11 @@ class Asciidoctor::Inline
     else
       "undefined inline anchor"
     end
+  end
+  
+  def inline_break_process
+    puts ["Node:".blue, "#{self.node_name}".cyan,  "type[#{self.type}], ".green + " text: #{self.text}"].join(" ") if VERBOSE
+    "#{self.text} \\\\"
   end
   
 end
