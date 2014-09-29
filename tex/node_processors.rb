@@ -60,23 +60,34 @@ end
 
 class Asciidoctor::List
   
+  
+  def ulist_process
+    list = "\\begin{itemize}\n\n"
+    self.content.each do |item|
+      puts ["  --  item: ".blue, "#{item.text.abbreviate}"].join(" ") if VERBOSE
+      list << "\\item #{item.text}\n\n"
+      list << item.content
+    end
+    list << "\\end{itemize}\n\n"  
+  end
+  
+  def olist_process
+    list = "\\begin{enumerate}\n\n"
+    self.content.each do |item|
+      puts ["  --  item:  ".blue, "#{item.text.abbreviate}"].join(" ") if VERBOSE
+      list << "\\item #{item.text}\n\n"
+      list << item.content
+    end
+    list << "\\end{enumerate}\n\n"  
+  end
+  
   def tex_process
-   puts ["Node:".blue, "#{self.node_name}".cyan, "#{self.content.count} items"].join(" ") if VERBOSE
+   puts ["Node:".blue, "#{self.node_name}[#{self.level}]".cyan, "#{self.content.count} items"].join(" ") if VERBOSE
    case self.node_name
    when 'ulist'
-     list = "\\begin{itemize}\n\n"
-     self.content.each do |item|
-       puts ["  --  item: ".blue, "#{item.text.abbreviate}"].join(" ") if VERBOSE
-       list << "\\item #{item.text}\n\n"
-     end
-     list << "\\end{itemize}\n\n"  
+     ulist_process
    when 'olist'
-     list = "\\begin{enumerate}\n\n"
-     self.content.each do |item|
-       puts ["  --  item:  ".blue, "#{item.text.abbreviate}"].join(" ") if VERBOSE
-       list << "\\item #{item.text}\n\n"
-     end
-     list << "\\end{enumerate}\n\n"  
+     olist_process
    else
      puts "This Asciidoctor::List, tex_process.  I don't know how to do that (#{self.node_name})" unless QUIET
    end
@@ -88,25 +99,41 @@ end
 
 class Asciidoctor::Block
   
+  def paragraph_process
+    self.content << "\n\n"
+  end
+  
+  def stem_process
+    puts ["Node:".blue, "#{self.blockname}".cyan].join(" ") if VERBOSE 
+    environment = TeXBlock.environment_type self.content
+    if TeXBlock::INNER_TYPES.include? environment
+      "\\\[\n#{self.content}\n\\\]\n"
+    else
+      self.content
+    end
+  end
+  
+  def admonition_process
+    puts ["Node:".blue, "#{self.blockname}".cyan, "#{self.style}:".magenta, "#{self.lines[0]}"].join(" ") if VERBOSE   
+    "\\admonition\{#{self.style}\}\{#{self.content}\}\n"
+  end
+  
+  def page_break_process
+    puts ["Node:".blue, "#{self.blockname}".cyan].join(" ") if VERBOSE
+    "\n\\vfill\\eject\n"
+  end
+  
   def tex_process
     puts ["Node:".blue , "#{self.blockname}".blue].join(" ") if VERBOSE
     case self.blockname
     when :paragraph
-      self.content << "\n\n"
+      paragraph_process
     when :stem
-      puts ["Node:".blue, "#{self.blockname}".cyan].join(" ") if VERBOSE 
-        environment = TeXBlock.environment_type self.content
-        if TeXBlock::INNER_TYPES.include? environment
-          "\\\[\n#{self.content}\n\\\]\n"
-        else
-          self.content
-        end
-      when :admonition
-        puts ["Node:".blue, "#{self.blockname}".cyan, "#{self.style}:".magenta, "#{self.lines[0]}"].join(" ") if VERBOSE   
-        "\\admonition\{#{self.style}\}\{#{self.content}\}\n"
-      when :page_break
-        puts ["Node:".blue, "#{self.blockname}".cyan].join(" ") if VERBOSE
-        "\n\\vfill\\eject\n"
+      stem_process
+    when :admonition
+      admonition_process
+    when :page_break
+      page_break_process
     else
       puts "This Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})" unless QUIET
       ""
