@@ -44,3 +44,8 @@
 \parindent0pt
 
 
+% Needed for Asciidoc
+
+\newcommand{\admonition}[2]{\textbf{#1}: {#2}}
+
+
