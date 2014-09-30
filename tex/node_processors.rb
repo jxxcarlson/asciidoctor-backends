@@ -254,11 +254,16 @@ module TexPostProcess
     str
   end
   
+  # (1) & (2) are needed together to protect \\
+  # inside of matrices, etc.
   def TexPostProcess.make_substitutions str
+    str = str.gsub('\\\\', '@@')   # (1)
 	  matches = TexPostProcess.getInline str
     str = TexPostProcess.make_substitutions_in_matches matches, str
 	  matches = TexPostProcess.getBlock str
-    str = TexPostProcess.make_substitutions_in_matches matches, str  
+    str = TexPostProcess.make_substitutions_in_matches matches, str 
+    str = str.tr('@','\\')         # (2)
+    str
   end
   
   

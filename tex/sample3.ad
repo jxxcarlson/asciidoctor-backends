@@ -2,6 +2,10 @@
 
 Please solve the inequality $x^2 > 2$.
 
+Please evaluate: $x^2 \ 2$.
+
+Please evaluate: $x^2 \\ 2$.
+
 \[ 
 M = \left[ 
   \begin{array}{ c c } 
@@ -13,5 +17,5 @@ M = \left[
 == Passthrough tests
 
 ++++
-<br \>HTML</br >
+Pass this through, please.
 ++++
