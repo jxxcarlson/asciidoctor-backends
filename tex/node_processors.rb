@@ -242,7 +242,8 @@ module TexPostProcess
   def TexPostProcess.make_substitutions1 str
 	  str = str.gsub("&amp;", "&")
     str = str.gsub("&gt;", ">")
-    str = str.gsub("&lt;", "<")	  
+    str = str.gsub("&lt;", "<")
+   	  
   end
   
   def TexPostProcess.make_substitutions_in_matches matches, str   
@@ -256,9 +257,21 @@ module TexPostProcess
   
   def TexPostProcess.make_substitutions str
 	  matches = TexPostProcess.getInline str
-    str = TexPostProcess.make_substitutions_in_matches matches, str
+    puts "matches.count: #{matches.count}".magenta
+    puts "Before: (1)".magenta
+    if matches.count > 0
+      str = TexPostProcess.make_substitutions_in_matches matches, str
+      puts str.yellow
+    end
 	  matches = TexPostProcess.getBlock str
-    str = TexPostProcess.make_substitutions_in_matches matches, str  
+    puts "Before: (2)".magenta
+    if matches.count > 0
+      str = TexPostProcess.make_substitutions_in_matches matches, str
+      puts str.magenta
+    end
+    ## puts str.magenta
+    # str = str.gsub("\\", "\\\\")
+    puts str.green
   end
   
   
