@@ -198,8 +198,10 @@ class Asciidoctor::Inline
     case self.type
     when :link
       "\\href\{#{self.target}\}\{#{self.text}\}"
+    when :ref
+      "\\label\{#{self.text}\}"
     else
-      "undefined inline anchor"
+      puts "!!  : undefined inline anchor -----------".magenta unless QUIET
     end
   end
   
