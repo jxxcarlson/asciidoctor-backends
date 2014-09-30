@@ -142,7 +142,4 @@ the medieval Islamic period.  See <<alkwarizmi>> .
 
 Implement tables.  Such a pain in TeX, so much nicer in Asciidoc!
 
-Also: we need to write a preamble and to 
-end the document properly.
-
 PS.  We should handle both plain TeX and LaTeX.
