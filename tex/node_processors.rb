@@ -112,6 +112,8 @@ class Asciidoctor::Block
       page_break_process
     when :literal
       self.literal_process
+    when :pass
+      self.pass_process
     else
       puts "This is Asciidoctor::Block, tex_process.  I don't know how to do that (#{self.blockname})" unless QUIET
       ""
@@ -143,11 +145,14 @@ class Asciidoctor::Block
   end
   
   def literal_process
-    puts ["Node:".magenta, "#{self.blockname}".magenta].join(" ") if VERBOSE
+    puts ["Node:".magenta, "#{self.blockname}".cyan].join(" ") if VERBOSE
     "\\begin\{verbatim\}\n#{self.content}\n\\end\{verbatim\}\n"
   end
   
- 
+  def pass_process
+    puts ["Node:".magenta, "#{self.blockname}".cyan].join(" ") if VERBOSE
+    self.content
+  end
   
 end
 
