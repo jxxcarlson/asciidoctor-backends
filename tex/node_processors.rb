@@ -121,7 +121,7 @@ class Asciidoctor::Block
   end 
   
   def paragraph_process
-    self.content << "\n\n"
+    self.content.tex_post_process << "\n\n"
   end
   
   def stem_process
@@ -218,4 +218,50 @@ class Asciidoctor::Inline
   end
   
 end
+
+class String
+  
+  def tex_post_process
+    TexPostProcess.make_substitutions self
+  end
+  
+end
+
+module TexPostProcess
+  
+  def TexPostProcess.getInline str
+	  rx_tex_inline = /\$(.*?)\$/
+	  matches = str.scan rx_tex_inline
+  end
+  
+  def TexPostProcess.getBlock str
+	  rx_tex_block = /\\\[(.*?)\\\]/m
+	  matches = str.scan rx_tex_block
+  end
+  
+  def TexPostProcess.make_substitutions1 str
+	  str = str.gsub("&amp;", "&")
+    str = str.gsub("&gt;", ">")
+    str = str.gsub("&lt;", "<")	  
+  end
+  
+  def TexPostProcess.make_substitutions_in_matches matches, str   
+	  matches.each do |m|
+      m_str = m[0]
+      m_transformed = TexPostProcess.make_substitutions1 m_str
+      str = str.gsub(m_str,m_transformed)
+    end
+    str
+  end
+  
+  def TexPostProcess.make_substitutions str
+	  matches = TexPostProcess.getInline str
+    str = TexPostProcess.make_substitutions_in_matches matches, str
+	  matches = TexPostProcess.getBlock str
+    str = TexPostProcess.make_substitutions_in_matches matches, str  
+  end
+  
+  
+end
+
 
