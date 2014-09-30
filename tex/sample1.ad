@@ -135,6 +135,9 @@ M = \left[
 \end{equation}
 \]
 
+The above is an equation.  The were extensilively treated in
+the medieval Islamic period.  See <<alkwarizmi>> .
+	
 == Things to do
 
 Implement tables.  Such a pain in TeX, so much nicer in Asciidoc!

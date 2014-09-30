@@ -199,7 +199,9 @@ class Asciidoctor::Inline
     when :link
       "\\href\{#{self.target}\}\{#{self.text}\}"
     when :ref
-      "\\label\{#{self.text}\}"
+      "\\label\{#{self.text.gsub(/\[(.*?)\]/, "\\1")}\}"
+    when :xref
+      "\\ref\{#{self.target.gsub('#','')}\}"
     else
       puts "!!  : undefined inline anchor -----------".magenta unless QUIET
     end
